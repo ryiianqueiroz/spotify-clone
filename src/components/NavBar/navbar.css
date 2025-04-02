@@ -1,0 +1,7 @@
+#icon-home:hover > #icon-home-img {
+    opacity: 100%;
+}
+
+#search-nav:hover > #search-nav-div > #search-nav-img {
+    opacity: 100%;
+}
