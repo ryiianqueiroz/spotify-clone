@@ -62,7 +62,7 @@ export default function Explore() {
         }
     }, []);
 
-    const goLeft = (num: any) => {
+    const goLeft = (num: number) => {
         const navGroup = document.querySelector(`#card-items${num}`) as HTMLElement;
         
         if (navGroup) {
@@ -73,7 +73,7 @@ export default function Explore() {
         }
       };
     
-    const goRight = (num: any) => {
+    const goRight = (num: number) => {
         const navGroup = document.querySelector(`#card-items${num}`) as HTMLElement;
         
         if (navGroup) {
@@ -104,7 +104,7 @@ export default function Explore() {
                 {items5.map((item, index) => (
                     <RectangleDiv
                         key={index}
-                        onMouseEnter={() => setAlbumHoverIndex({ id: index, value: 0})}
+                        onMouseEnter={() => {setAlbumHoverIndex({ id: index, value: 0}); setHoverIndex(index)}}
                         onMouseLeave={() => setAlbumHoverIndex({ id: null, value: 0})}
                     >
                         <div className="w-[80px] h-[60px] rounded-tl-sm rounded-sm">

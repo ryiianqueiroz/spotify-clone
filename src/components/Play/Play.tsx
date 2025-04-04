@@ -1,5 +1,5 @@
 import Image from "next/image";
-import AlbumCover from "../../images/album-cover.jpeg"
+//import AlbumCover from "../../images/album-cover.jpeg"
 import Check from "../../images/check.png"
 import RefreshArrow from "../../images/refresh-arrow.png"
 import Back from "../../images/back.png"

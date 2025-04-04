@@ -51,7 +51,7 @@ export default function Library() {
   useEffect(() => {
     if (typeof window !== "undefined") {
       const observer = new ResizeObserver((entries) => {
-        for (let entry of entries) {
+        for (const entry of entries) {
           const larguraAtual = Math.round(entry.contentRect.width); // Garante um número inteiro
           setMostrarElemento(larguraAtual <= 360); // Mostra só se for <= 420px
         }
