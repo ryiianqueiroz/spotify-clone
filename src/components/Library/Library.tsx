@@ -46,7 +46,7 @@ export default function Library() {
   const isResizing = useRef(false);
   const lastX = useRef(0);
 
-  const items5 = [[LikedSongs, "Músicas Curtidas"], [pt2, "amor de verão"], [pt3, "Projeto Verão"], [pt4, "VERÃO 2025"], [pt5, "CAOS", "Alee"], [pt6, "UTOPIA", "Travis Scott"], [pt7, "MUSIC", "Playboy Carti"], [pt8, "Afrobeat"], [OIP, "Beauty Behind The Madness", "The Weeknd"], [pt20, "RENT'S DUE", "Nemzzz"], [pt21, "MAIOR QUE O TEMPO", "Teto"], [pt22, "Melhor Só", "Kayblack"], [pt23, "M4", "Teto, Matuê"]];
+  const items5 = [[LikedSongs, "Músicas Curtidas", ""], [pt2, "amor de verão", ""], [pt3, "Projeto Verão", ""], [pt4, "VERÃO 2025", ""], [pt5, "CAOS", "Alee"], [pt6, "UTOPIA", "Travis Scott"], [pt7, "MUSIC", "Playboy Carti"], [pt8, "Afrobeat"], [OIP, "Beauty Behind The Madness", "The Weeknd"], [pt20, "RENT'S DUE", "Nemzzz"], [pt21, "MAIOR QUE O TEMPO", "Teto"], [pt22, "Melhor Só", "Kayblack"], [pt23, "M4", "Teto, Matuê"]];
 
   useEffect(() => {
     if (typeof window !== "undefined") {
