@@ -1,7 +1,7 @@
 "use client"
 
 import { ButtonExploreNav, RectangleDiv, RotationPlaylistSection, RotationPlaylistH1, RotationPlaylistA, Cards, Card, CardH1, CardP } from "../../styles/styles"
-import AlbumCover from "../../images/album-cover.jpeg"
+//import AlbumCover from "../../images/album-cover.jpeg"
 import RightArrow from "../../images/right-arrowhover.png"
 import RightArrowButton from "../../images/right-arrow (1).png";
 import pt1 from "../../images/covers/pt1.jpg"
@@ -12,11 +12,11 @@ import pt5 from "../../images/covers/pt5.jpg"
 import pt6 from "../../images/covers/pt6.jpg"
 import pt7 from "../../images/covers/pt7.jpg"
 import pt8 from "../../images/covers/pt8.jpg"
-import pt9 from "../../images/covers/pt9.jpg"
+//import pt9 from "../../images/covers/pt9.jpg"
 import pt10 from "../../images/covers/pt10.jpg"
 import pt11 from "../../images/covers/pt11.jpg"
 import pt12 from "../../images/covers/pt12.jpg"
-import pt13 from "../../images/covers/pt13.jpg"
+// import pt13 from "../../images/covers/pt13.jpg"
 import pt14 from "../../images/covers/pt14.jpg"
 import pt15 from "../../images/covers/pt15.jpg"
 import pt16 from "../../images/covers/pt16.jpg"
@@ -104,8 +104,8 @@ export default function Explore() {
                 {items5.map((item, index) => (
                     <RectangleDiv
                         key={index}
-                        onMouseEnter={() => setHoverIndex(index, 1)}
-                        onMouseLeave={() => setHoverIndex(null)}
+                        onMouseEnter={() => setAlbumHoverIndex({ id: index, value: 0})}
+                        onMouseLeave={() => setAlbumHoverIndex({ id: null, value: 0})}
                     >
                         <div className="w-[80px] h-[60px] rounded-tl-sm rounded-sm">
                             <Image src={item[0]} alt="#" className="w-full h-full"/>    
