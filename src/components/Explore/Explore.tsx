@@ -36,7 +36,10 @@ import { useState, useEffect } from "react"
 
 export default function Explore() {
     const [hoverIndex, setHoverIndex] = useState<number | null>(null);
-    const [hoverAlbumIndex, setAlbumHoverIndex] = useState<number | null>(null);
+    const [hoverAlbumIndex, setAlbumHoverIndex] = useState<{ id: number | null; value: number }>({
+        id: null,
+        value: 0,
+    });
     const [numSelect, setNumSelect] = useState(0)
 
     const [moves, setMoves] = useState(["0", "0", "0", "0"]);
@@ -46,6 +49,18 @@ export default function Explore() {
     const items3 = [[pt2, "amor de verão"], [pt3, "Projeto Verão"], [pt4, "VERÃO 2025"], [pt5, "CAOS", "Alee"], [pt6, "UTOPIA", "Travis Scott"], [pt7, "MUSIC", "Playboy Carti"], [pt8, "Afrobeat"], [OIP, "Beauty Behind The Madness", "The Weeknd"]];
     const items4 = [[OIP, "Beauty Behind The Madness", "The Weeknd"], [pt20, "RENT'S DUE", "Nemzzz"], [pt21, "MAIOR QUE O TEMPO", "Teto"], [pt22, "Melhor Só", "Kayblack"], [pt23, "M4", "Teto, Matuê"], [pt5, "CAOS", "Alee"], [pt7, "MUSIC", "Playboy Carti"], [pt8, "Afrobeat"]];
     const items5 = [[LikedSongs, "Músicas Curtidas"], [pt2, "amor de verão"], [pt3, "Projeto Verão"], [pt4, "VERÃO 2025"], [pt5, "CAOS", "Alee"], [pt6, "UTOPIA", "Travis Scott"], [pt7, "MUSIC", "Playboy Carti"], [pt8, "Afrobeat"]];
+
+    const [width, setWidth] = useState<number>(0);
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+          setWidth(window.innerWidth); // define logo de início
+          const handleResize = () => setWidth(window.innerWidth);
+      
+          window.addEventListener('resize', handleResize);
+          return () => window.removeEventListener('resize', handleResize);
+        }
+    }, []);
 
     const goLeft = (num: any) => {
         const navGroup = document.querySelector(`#card-items${num}`) as HTMLElement;
@@ -89,7 +104,7 @@ export default function Explore() {
                 {items5.map((item, index) => (
                     <RectangleDiv
                         key={index}
-                        onMouseEnter={() => setHoverIndex(index)}
+                        onMouseEnter={() => setHoverIndex(index, 1)}
                         onMouseLeave={() => setHoverIndex(null)}
                     >
                         <div className="w-[80px] h-[60px] rounded-tl-sm rounded-sm">
@@ -118,15 +133,17 @@ export default function Explore() {
                     {items1.map((item, index) => (
                         <Card 
                             key={index}
-                            onMouseEnter={() => setAlbumHoverIndex(index)}
-                            onMouseLeave={() => setAlbumHoverIndex(null)}
+                            onMouseEnter={() => setAlbumHoverIndex({ id: index, value: 1})}
+                            onMouseLeave={() => setAlbumHoverIndex({ id: null, value: 0})}
                             className="relative"
                         >
                             <Image alt="Album Cover" src={item[0]} width={180} height={180} className="mb-[10px]" />
 
                             {/* O botão SEMPRE está no DOM, mas começa invisível */}
                             <div className={`absolute cursor-pointer duration-300 right-0 flex w-11 h-11 rounded-full bg-green-500 items-center justify-center mt-[-60px] mr-1 shadow-[0px_7px_5px_0px_rgba(0,0,0,0.25)]
-                                transition-opacity ease-in-out ${hoverAlbumIndex === index ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-0'}`}
+                                transition-opacity ease-in-out ${hoverAlbumIndex.id === index && hoverAlbumIndex.value === 1 
+                                    ? 'opacity-100 translate-y-0' 
+                                    : 'opacity-0 translate-y-0'}`}
                             >
                                 <Image alt="right-arrow" className="w-4 h-4 invert" src={RightArrow} />
                             </div>
@@ -174,15 +191,17 @@ export default function Explore() {
                     {items2.map((item, index) => (
                         <Card 
                             key={index}
-                            onMouseEnter={() => setAlbumHoverIndex(index)}
-                            onMouseLeave={() => setAlbumHoverIndex(null)}
+                            onMouseEnter={() => setAlbumHoverIndex({ id: index, value: 2})}
+                            onMouseLeave={() => setAlbumHoverIndex({ id: null, value: 0})}
                             className="relative"
                         >
                             <Image alt="Album Cover" src={item[0]} width={180} height={180} className="mb-[10px]" />
 
                             {/* O botão SEMPRE está no DOM, mas começa invisível */}
                             <div className={`absolute cursor-pointer duration-300 right-0 flex w-11 h-11 rounded-full bg-green-500 items-center justify-center mt-[-60px] mr-1 shadow-[0px_7px_5px_0px_rgba(0,0,0,0.25)]
-                                transition-opacity ease-in-out ${hoverAlbumIndex === index ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-0'}`}
+                                transition-opacity ease-in-out ${hoverAlbumIndex.id === index && hoverAlbumIndex.value === 2 
+                                    ? 'opacity-100 translate-y-0' 
+                                    : 'opacity-0 translate-y-0'}`}
                             >
                                 <Image alt="right-arrow" className="w-4 h-4 invert" src={RightArrow} />
                             </div>
@@ -198,7 +217,7 @@ export default function Explore() {
                         </Card>
                     ))}
 
-                    { (numSelect === 2 && moves[1] === "1") || moves[1] === "1" ? (
+                    { width < 1270 && (numSelect === 2 && moves[1] === "1") || width < 1270 && moves[1] === "1" ? (
                         <div onClick={() => { goLeft(2); setNumSelect(0); setMove(1, "0")}} className="cursor-pointer flex justify-center items-center mt-[110px] min-w-[33px] h-[33px] bg-[#1f1f1f] absolute rounded-full shadow-2xl hover:brightness-150">
                             <Image
                                 className="w-[15px] h-[15px] invert cursor-pointer absolute filter opacity-75 rotate-180"
@@ -208,7 +227,7 @@ export default function Explore() {
                         </div>
                     ) : (<></>)}
 
-                    { numSelect !== 2 && moves[1] === "0" && (
+                    { width < 1270 && numSelect !== 2 && moves[1] === "0" && (
                         <div onClick={() => { goRight(2); setNumSelect(2); setMove(1, "1")}} className="cursor-pointer flex justify-center items-center mt-[110px] min-w-[33px] h-[33px] bg-[#1f1f1f] right-0 absolute rounded-full shadow-2xl hover:brightness-150">
                             <Image
                                 className="w-[15px] h-[15px] invert cursor-pointer absolute filter opacity-75"
@@ -230,15 +249,17 @@ export default function Explore() {
                     {items3.map((item, index) => (
                         <Card 
                             key={index}
-                            onMouseEnter={() => setAlbumHoverIndex(index)}
-                            onMouseLeave={() => setAlbumHoverIndex(null)}
+                            onMouseEnter={() => setAlbumHoverIndex({ id: index, value: 3})}
+                            onMouseLeave={() => setAlbumHoverIndex({ id: null, value: 0})}
                             className="relative"
                         >
                             <Image alt="Album Cover" src={item[0]} width={180} height={180} className="mb-[10px]" />
 
                             {/* O botão SEMPRE está no DOM, mas começa invisível */}
                             <div className={`absolute cursor-pointer duration-300 right-0 flex w-11 h-11 rounded-full bg-green-500 items-center justify-center mt-[-60px] mr-1 shadow-[0px_7px_5px_0px_rgba(0,0,0,0.25)]
-                                transition-opacity ease-in-out ${hoverAlbumIndex === index ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-0'}`}
+                                transition-opacity ease-in-out ${hoverAlbumIndex.id === index && hoverAlbumIndex.value === 3
+                                    ? 'opacity-100 translate-y-0' 
+                                    : 'opacity-0 translate-y-0'}`}
                             >
                                 <Image alt="right-arrow" className="w-4 h-4 invert" src={RightArrow} />
                             </div>
@@ -286,15 +307,17 @@ export default function Explore() {
                     {items4.map((item, index) => (
                         <Card 
                             key={index}
-                            onMouseEnter={() => setAlbumHoverIndex(index)}
-                            onMouseLeave={() => setAlbumHoverIndex(null)}
+                            onMouseEnter={() => setAlbumHoverIndex({ id: index, value: 4})}
+                            onMouseLeave={() => setAlbumHoverIndex({ id: null, value: 0})}
                             className="relative"
                         >
                             <Image alt="Album Cover" src={item[0]} width={180} height={180} className="mb-[10px]" />
 
                             {/* O botão SEMPRE está no DOM, mas começa invisível */}
                             <div className={`absolute cursor-pointer duration-300 right-0 flex w-11 h-11 rounded-full bg-green-500 items-center justify-center mt-[-60px] mr-1 shadow-[0px_7px_5px_0px_rgba(0,0,0,0.25)]
-                                transition-opacity ease-in-out ${hoverAlbumIndex === index ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-0'}`}
+                                transition-opacity ease-in-out ${hoverAlbumIndex.id === index && hoverAlbumIndex.value === 4 
+                                    ? 'opacity-100 translate-y-0' 
+                                    : 'opacity-0 translate-y-0'}`}
                             >
                                 <Image alt="right-arrow" className="w-4 h-4 invert" src={RightArrow} />
                             </div>
